@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestro Aniversario</title>
+  <link rel="icon" type="image/x-icon" href="static/icono.ico">
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="static/css/game.css">
+</head>
+<body>
+  <!-- ESCENARIO DE FONDOS DINÁMICOS -->
+  <div id="bg-stage">
+    <div class="bg-layer active" data-bg="0" style="background-image: url('static/images/fondos/fondo1.jpg');"></div>
+    <div class="bg-layer" data-bg="1" style="background-image: url('static/images/fondos/fondo2.jpg');"></div>
+    <div class="bg-layer" data-bg="2" style="background-image: url('static/images/fondos/fondo3.jpg');"></div>
+    <div class="bg-layer" data-bg="3" style="background-image: url('static/images/fondos/fondo4.jpg');"></div>
+    <div class="bg-overlay"></div>
+  </div>
+
+  <main class="scroll-container">
+    <!-- 1. PORTADA: CONTADOR A LA IZQUIERDA + TÍTULO + BLOC DE NOTAS A LA DERECHA -->
+    <section class="screen-section" data-section="0">
+      <div class="hero-layout reveal">
+        
+        <!-- COLUMNA IZQUIERDA: CONTADOR DE TIEMPO JUNTOS -->
+        <aside class="counter-panel">
+          <span class="panel-label">Juntos desde el</span>
+          <div class="start-date">21 de Noviembre de 2022</div>
+          <div class="divider-line"></div>
+          <div class="time-boxes">
+            <div class="time-unit">
+              <span id="cnt-years" class="time-num">0</span>
+              <span class="time-text">Años</span>
+            </div>
+            <div class="time-unit">
+              <span id="cnt-months" class="time-num">0</span>
+              <span class="time-text">Meses</span>
+            </div>
+            <div class="time-unit">
+              <span id="cnt-days" class="time-num">0</span>
+              <span class="time-text">Días</span>
+            </div>
+          </div>
+          <p class="total-days-sub">Un total de <b id="cnt-total-days">0</b> días compartidos</p>
+        </aside>
+
+        <!-- COLUMNA CENTRAL: DEDICATORIA -->
+        <div class="center-hero-card">
+          <span class="subtitle">Nuestra Historia</span>
+          <h1>Feliz Aniversario, Mi Amor</h1>
+          <p class="dedicatoria">
+            Un año más en el que compartimos tantos momentos agradables y felices. No importa cuántos años más se sumen a nuestro tiempo juntos, porque mi amor por ti seguirá creciendo, sin importar cuánto tiempo pase.
+
+Quiero que guardes este pequeño presente en lo más profundo de tu corazón, pues lo hice con todo el amor que tengo para ti. Y así como mi corazón se hace cada vez más grande por ti, espero que este regalo también pueda crecer con el paso del tiempo, acompañándonos en cada nuevo capítulo de nuestra historia.
+          </p>
+          <div class="scroll-hint">Desliza hacia abajo</div>
+        </div>
+
+        <!-- COLUMNA DERECHA: BLOC DE NOTAS CON ANIMACIÓN DE ARRANCAR Y DEVOLVER -->
+        <aside class="notepad-wrapper">
+          <div class="notepad-binding">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="notepad-stack">
+            <div class="notepad-base"></div>
+            <div id="notepad-sheet" class="notepad-sheet" onclick="abrirNotaCompleta()">
+              <div class="note-header">
+                <span id="note-number">Nota 1 / 4</span>
+                <span class="note-tag">Para ti</span>
+              </div>
+              <p id="note-body" class="note-handwriting"></p>
+              <div id="note-expand-hint" class="note-expand-hint">Clic en la hoja para leer completa</div>
+            </div>
+          </div>
+          <div class="notepad-controls">
+            <button id="btn-return-note" class="note-btn" onclick="devolverNota()" disabled>Devolver hoja</button>
+            <button id="btn-tear-note" class="note-btn primary" onclick="arrancarNota()">Arrancar hoja</button>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- 2. GALERÍA POLAROID CON FLECHAS (8 FOTOS POR PÁGINA) -->
+    <section class="screen-section" data-section="1">
+      <div class="glass-card reveal">
+        <h2>Nuestros Recuerdos</h2>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="cambiarSeccion('matchs', this)">Matching : US?</button>
+          <button class="tab-btn" onclick="cambiarSeccion('aventuras', this)">Aventuras Juntos</button>
+          <button class="tab-btn" onclick="cambiarSeccion('notas', this)">Nuestras notas</button>
+        </div>
+
+        <div class="gallery-carousel">
+          <button id="btn-prev" class="nav-arrow" onclick="cambiarPagina(-1)" aria-label="Anterior">&#10094;</button>
+          <div id="galeria" class="polaroid-grid"></div>
+          <button id="btn-next" class="nav-arrow" onclick="cambiarPagina(1)" aria-label="Siguiente">&#10095;</button>
+        </div>
+
+        <div id="page-indicator" class="page-indicator"></div>
+      </div>
+    </section>
+
+    <!-- 3. PLAYLIST SPOTIFY + CARTA ESTILO HOJA DE NOVELA ANTIGUA -->
+    <section class="screen-section" data-section="2">
+      <div class="music-letter-layout reveal">
+        
+        <!-- COLUMNA IZQUIERDA: VINILO GIRATORIO + PLAYLIST DEDICADA -->
+        <div class="glass-card music-card">
+          <span class="subtitle">Para escuchar pensando en nosotros</span>
+          <h2>Melodías elegidas para ti</h2>
+          <p class="music-dedication">Cada canción de esta lista fue seleccionada por mí, dedicándote cada letra y cada recuerdo.</p>
+
+          <div class="turntable-stage">
+            <div id="vinyl-disc" class="vinyl-disc spinning">
+              <div class="vinyl-grooves"></div>
+              <div class="vinyl-label">
+                <span>21 · NOV</span>
+                <small>4 AÑOS</small>
+              </div>
+              <div class="vinyl-spindle"></div>
+            </div>
+            <div id="tonearm" class="tonearm playing"></div>
+          </div>
+
+          <div class="vinyl-controls">
+            <div id="equalizer-bars" class="equalizer active">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <button id="btn-toggle-vinyl" class="vinyl-toggle-btn" onclick="alternarVinilo()">Pausar disco</button>
+          </div>
+
+          <div class="player-box">
+            <div id="spotify-online">
+              <iframe
+                style="border-radius:12px"
+                src="https://open.spotify.com/embed/playlist/6joIITty6CAV0KuWTXhRON?utm_source=generator&theme=0"
+                width="100%"
+                height="352"
+                frameBorder="0"
+                allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy">
+              </iframe>
+            </div>
+
+            <div id="spotify-offline" class="offline-notice" style="display: none;">
+              <p class="offline-title">Playlist de Spotify no disponible sin conexión</p>
+              <p class="offline-text">
+                Recuerda que podrás visualizar y escuchar las canciones que elegí para ti cuando te conectes a internet.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: CARTA EN HOJA DE NOVELA ANTIGUA -->
+        <article class="antique-letter-sheet">
+          <div class="letter-top-ornament">Para ti</div>
+          <div id="letter-page-content" class="letter-novel-text"></div>
+          
+          <div class="letter-footer-nav">
+            <button id="btn-letter-prev" class="letter-nav-btn" onclick="cambiarPaginaCarta(-1)" disabled>Página anterior</button>
+            <span id="letter-page-num" class="letter-page-num">1 / 1</span>
+            <button id="btn-letter-next" class="letter-nav-btn" onclick="cambiarPaginaCarta(1)">Siguiente página</button>
+          </div>
+          <button class="letter-expand-btn" onclick="abrirCartaCompleta()">Leer carta desplegada</button>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 4. MINIJUEGO: ESTRATEGIA DEL GATITO -->
+    <section class="screen-section" data-section="3">
+      <div class="glass-card game-wrap reveal">
+        <span class="subtitle">Defiende la siesta del gatito</span>
+        <h2>El Jardín del Gatito</h2>
+
+        <div class="hud">
+          <span>Cariño: <b id="cat-energy">50</b></span>
+          <span>Oleada: <b id="cat-wave">1</b></span>
+          <span>Tiempo: <b id="cat-timer">0</b> / 60s</span>
+          <button id="btn-play-game" class="tab-btn" onclick="iniciarJuego()">Play</button>
+        </div>
+
+        <div class="tower-shop" id="tower-shop">
+          <button class="tower-btn active" data-type="cat" onclick="seleccionarHerramienta('cat', this)">
+            <span class="tower-name">Gatito Guardián</span>
+            <span class="tower-cost">25 Cariño · Ataque</span>
+          </button>
+          <button class="tower-btn" data-type="yarn" onclick="seleccionarHerramienta('yarn', this)">
+            <span class="tower-name">Ovillo Generador</span>
+            <span class="tower-cost">20 Cariño · +15 Energía</span>
+          </button>
+          <button class="tower-btn" data-type="cushion" onclick="seleccionarHerramienta('cushion', this)">
+            <span class="tower-name">Cojín Escudo</span>
+            <span class="tower-cost">15 Cariño · Bloqueo</span>
+          </button>
+        </div>
+
+        <canvas id="gameCanvas" width="720" height="300"></canvas>
+        <p class="game-tip">Selecciona una ficha arriba y haz clic en una casilla del jardín para colocarla.</p>
+
+        <div id="premio"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- VISOR MODAL DE FOTO -->
+  <div id="photo-modal" class="modal-backdrop" onclick="cerrarModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-controls">
+        <button id="toggle-frame-btn" class="tab-btn" onclick="alternarMarco()">Ver foto original sin marco</button>
+        <button class="close-modal-btn" onclick="cerrarModal()" aria-label="Cerrar">&times;</button>
+      </div>
+      <div id="modal-photo-wrapper" class="polaroid-viewer">
+        <img id="modal-img" src="" alt="Recuerdo ampliado" />
+        <p id="modal-caption" class="polaroid-caption">Nuestro Recuerdo</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISOR MODAL DE NOTA COMPLETA -->
+  <div id="note-modal" class="modal-backdrop" onclick="cerrarNotaModal(event)">
+    <div class="expanded-note-sheet" onclick="event.stopPropagation()">
+      <div class="note-header">
+        <span id="modal-note-number">Nota</span>
+        <button class="close-note-btn" onclick="cerrarNotaModal()" aria-label="Cerrar">&times;</button>
+      </div>
+      <p id="modal-note-body" class="expanded-note-text"></p>
+    </div>
+  </div>
+
+  <!-- VISOR MODAL DE CARTA COMPLETA -->
+  <div id="letter-modal" class="modal-backdrop" onclick="cerrarCartaModal(event)">
+    <div class="antique-letter-modal" onclick="event.stopPropagation()">
+      <div class="letter-modal-header">
+        <span>Carta de Aniversario</span>
+        <button class="close-note-btn" onclick="cerrarCartaModal()" aria-label="Cerrar">&times;</button>
+      </div>
+      <div id="modal-letter-full-text" class="letter-full-scroll"></div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS (data.js carga primero para alimentar a script.js) -->
+  <script src="static/js/data.js"></script>
+  <script src="static/js/script.js"></script>
+  <script src="static/js/game.js"></script>
+</body>
+</html>
