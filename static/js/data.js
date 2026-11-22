@@ -4,7 +4,7 @@
 
 const GALERIA_DATA = {
   matchs: [
-    "static/images/matchs/static/images/matchs/denjixasa1.jpg",
+    "static/images/matchs/denjixasa1.jpg",
     "static/images/matchs/denjixasa2.jpg",
     "static/images/matchs/denjixasa3.jpg",
     "static/images/matchs/denjixasa4.jpg",
