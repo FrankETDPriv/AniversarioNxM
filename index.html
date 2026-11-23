@@ -170,36 +170,51 @@ Quiero que guardes este pequeño presente en lo más profundo de tu corazón, pu
       </div>
     </section>
 
-    <!-- 4. MINIJUEGO: ESTRATEGIA DEL GATITO -->
+    <!-- 4. MINIJUEGO: BACKROOMS DEL GATITO -->
     <section class="screen-section" data-section="3">
       <div class="glass-card game-wrap reveal">
-        <span class="subtitle">Defiende la siesta del gatito</span>
-        <h2>El Jardín del Gatito</h2>
+        <span class="subtitle">Encuentra los 4 dígitos y escapa</span>
+        <h2>Backrooms: Nivel 0</h2>
 
         <div class="hud">
-          <span>Cariño: <b id="cat-energy">50</b></span>
-          <span>Oleada: <b id="cat-wave">1</b></span>
-          <span>Tiempo: <b id="cat-timer">0</b> / 60s</span>
-          <button id="btn-play-game" class="tab-btn" onclick="iniciarJuego()">Play</button>
+          <span>Sala: <b id="br-room">Pasillo Amarillo</b></span>
+          <span>Dígitos: <b id="br-digits">_ _ _ _</b></span>
+          <span>Estado: <b id="br-status">Seguro</b></span>
+          <button id="btn-play-game" class="tab-btn" onclick="iniciarJuego()">Jugar</button>
         </div>
 
-        <div class="tower-shop" id="tower-shop">
-          <button class="tower-btn active" data-type="cat" onclick="seleccionarHerramienta('cat', this)">
-            <span class="tower-name">Gatito Guardián</span>
-            <span class="tower-cost">25 Cariño · Ataque</span>
-          </button>
-          <button class="tower-btn" data-type="yarn" onclick="seleccionarHerramienta('yarn', this)">
-            <span class="tower-name">Ovillo Generador</span>
-            <span class="tower-cost">20 Cariño · +15 Energía</span>
-          </button>
-          <button class="tower-btn" data-type="cushion" onclick="seleccionarHerramienta('cushion', this)">
-            <span class="tower-name">Cojín Escudo</span>
-            <span class="tower-cost">15 Cariño · Bloqueo</span>
-          </button>
+        <div class="br-stage-wrap">
+          <canvas id="gameCanvas" width="720" height="340"></canvas>
+
+          <!-- PANEL DE CÓDIGO DE SALIDA (Se abre al interactuar con la puerta de salida) -->
+          <div id="br-keypad" class="br-keypad" style="display: none;">
+            <div class="br-keypad-header">
+              <span>CERRADURA DE SALIDA</span>
+              <button type="button" class="br-keypad-close" onclick="cerrarKeypad()">&times;</button>
+            </div>
+            <div id="br-keypad-display" class="br-keypad-display">_ _ _ _</div>
+            <div class="br-keypad-grid">
+              <button type="button" onclick="ingresarDigito('1')">1</button>
+              <button type="button" onclick="ingresarDigito('2')">2</button>
+              <button type="button" onclick="ingresarDigito('3')">3</button>
+              <button type="button" onclick="ingresarDigito('4')">4</button>
+              <button type="button" onclick="ingresarDigito('5')">5</button>
+              <button type="button" onclick="ingresarDigito('6')">6</button>
+              <button type="button" onclick="ingresarDigito('7')">7</button>
+              <button type="button" onclick="ingresarDigito('8')">8</button>
+              <button type="button" onclick="ingresarDigito('9')">9</button>
+              <button type="button" class="br-key-clear" onclick="limpiarKeypad()">C</button>
+              <button type="button" onclick="ingresarDigito('0')">0</button>
+              <button type="button" class="br-key-ok" onclick="verificarCodigo()">OK</button>
+            </div>
+          </div>
         </div>
 
-        <canvas id="gameCanvas" width="720" height="300"></canvas>
-        <p class="game-tip">Selecciona una ficha arriba y haz clic en una casilla del jardín para colocarla.</p>
+        <!-- CONTROLES RÁPIDOS (Útiles también en táctil o con clic) -->
+        <div class="br-controls-bar">
+          <span class="game-tip"><b>A / D</b> o <b>Flechas</b>: Caminar · <b>E</b> o <b>Clic en objeto</b>: Revisar / Esconderse</span>
+          <button type="button" class="tab-btn br-action-btn" onclick="ejecutarAccionCercana()">Interactuar [E]</button>
+        </div>
 
         <div id="premio"></div>
       </div>

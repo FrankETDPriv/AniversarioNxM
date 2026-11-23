@@ -1,5 +1,5 @@
 /* =========================================================================
-   ESTILOS EXCLUSIVOS DEL MINIJUEGO DEL GATITO (static/css/game.css)
+   ESTILOS EXCLUSIVOS DEL MINIJUEGO: BACKROOMS DEL GATITO (static/css/game.css)
    ========================================================================= */
 
 .game-wrap {
@@ -17,71 +17,177 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.6rem;
-  margin-bottom: 0.85rem;
+  gap: 1.5rem;
+  margin-bottom: 0.95rem;
   color: var(--gold);
-  font-size: 0.98rem;
+  font-size: 0.96rem;
   flex-wrap: wrap;
 }
 
-.tower-shop {
+.hud span b {
+  letter-spacing: 0.04em;
+}
+
+#br-digits {
+  font-family: 'Courier New', Courier, monospace;
+  background: rgba(20, 15, 8, 0.75);
+  padding: 0.2rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid rgba(226, 190, 141, 0.35);
+  color: #ffe28a;
+  font-size: 1rem;
+}
+
+/* CONTENEDOR RELATIVO PARA EL CANVAS Y EL KEYPAD */
+.br-stage-wrap {
+  position: relative;
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 0.9rem;
-  flex-wrap: wrap;
-}
-
-.tower-btn {
-  background: rgba(24, 16, 11, 0.75);
-  border: 1px solid rgba(226, 190, 141, 0.35);
-  border-radius: 14px;
-  padding: 0.45rem 0.95rem;
-  color: var(--text);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  transition: all 0.2s ease;
-}
-
-.tower-btn .tower-name {
-  font-family: var(--font-editorial);
-  font-size: 0.92rem;
-  color: var(--gold);
-}
-
-.tower-btn .tower-cost {
-  font-size: 0.72rem;
-  color: var(--muted);
-}
-
-.tower-btn.active,
-.tower-btn:hover {
-  border-color: var(--gold);
-  background: rgba(226, 190, 141, 0.18);
-  transform: translateY(-2px);
+  width: 100%;
+  max-width: 720px;
 }
 
 #gameCanvas {
   background: #231811;
   border: 1px solid rgba(226, 190, 141, 0.45);
   border-radius: 14px;
-  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
   cursor: pointer;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+}
+
+/* PANEL DE CERRADURA DE SALIDA (KEYPAD) */
+.br-keypad {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 235px;
+  background: rgba(24, 18, 10, 0.96);
+  border: 1.5px solid var(--gold);
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.8);
+  z-index: 10;
+  backdrop-filter: blur(6px);
+}
+
+.br-keypad-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+  font-size: 0.74rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+
+.br-keypad-close {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.br-keypad-close:hover {
+  color: #ff7b7b;
+}
+
+.br-keypad-display {
+  background: #120e07;
+  border: 1px solid rgba(226, 190, 141, 0.35);
+  border-radius: 8px;
+  padding: 0.55rem;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.35rem;
+  font-weight: bold;
+  letter-spacing: 0.18em;
+  color: #ffe28a;
+  margin-bottom: 0.75rem;
+}
+
+.br-keypad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+}
+
+.br-keypad-grid button {
+  background: rgba(226, 190, 141, 0.12);
+  border: 1px solid rgba(226, 190, 141, 0.32);
+  border-radius: 8px;
+  padding: 0.55rem 0;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.br-keypad-grid button:hover {
+  background: rgba(226, 190, 141, 0.28);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.br-keypad-grid button:active {
+  transform: translateY(1px);
+}
+
+.br-keypad-grid button.br-key-clear {
+  background: rgba(224, 122, 95, 0.18);
+  border-color: rgba(224, 122, 95, 0.45);
+  color: #ff9e8a;
+}
+
+.br-keypad-grid button.br-key-ok {
+  background: rgba(155, 229, 170, 0.18);
+  border-color: rgba(155, 229, 170, 0.45);
+  color: #a8e6cf;
+}
+
+/* BARRA INFERIOR DE CONTROLES */
+.br-controls-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 720px;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .game-tip {
-  margin-top: 0.6rem;
-  font-size: 0.8rem;
+  margin: 0;
+  font-size: 0.82rem;
   color: var(--muted);
   font-style: italic;
 }
 
+.game-tip b {
+  color: var(--gold);
+  font-style: normal;
+}
+
+.br-action-btn {
+  padding: 0.35rem 0.9rem;
+  font-size: 0.82rem;
+}
+
+/* CARTEL DEL PREMIO FINAL */
 #premio {
   display: none;
-  margin-top: 0.9rem;
+  margin-top: 0.95rem;
   padding: 0.9rem 1.4rem;
   background: rgba(226, 190, 141, 0.16);
   border: 1px dashed var(--gold);
@@ -90,5 +196,22 @@
   font-family: var(--font-editorial);
   font-size: 1.08rem;
   letter-spacing: 0.02em;
+  text-align: center;
   transition: opacity 0.4s ease;
+}
+
+@media (max-width: 640px) {
+  .game-wrap {
+    padding: 1.2rem 1rem;
+  }
+
+  .hud {
+    gap: 0.85rem;
+    font-size: 0.88rem;
+  }
+
+  .br-controls-bar {
+    justify-content: center;
+    text-align: center;
+  }
 }
